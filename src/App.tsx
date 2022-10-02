@@ -28,7 +28,7 @@ function App() {
         {results?.cand?.map((cand: any) => (
           <div key={cand?.sqcand}>
             <h3>
-              {cand?.nm} - {cand?.pvap}%
+              {cand?.nm} - {cand?.pvap}% ({cand?.vap} votos)
             </h3>
           </div>
         ))}
@@ -37,7 +37,9 @@ function App() {
         <br />
         <br />
         <br />
-        <h2>Votos apurados: {results?.vv}</h2>
+        <h2>
+          Votos apurados: {results?.vv} ({results?.pst}%)
+        </h2>
       </div>
     </div>
   );
