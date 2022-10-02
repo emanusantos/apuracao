@@ -42,7 +42,8 @@ function App() {
           {results?.cand?.map((cand: any) => (
             <div key={cand?.sqcand}>
               <h4>
-                {cand?.nm} - {cand?.pvap}% ({cand?.vap} votos)
+                {cand?.nm?.replace("&apos;", "'")} - {cand?.pvap}% ({cand?.vap}{" "}
+                votos)
               </h4>
             </div>
           ))}
