@@ -1,20 +1,39 @@
 import React from "react";
 import "./App.css";
 
+const urlGetter = {
+  "/": {
+    url: "https://resultados.tse.jus.br/oficial/ele2022/544/dados-simplificados/br/br-c0001-e000544-r.json",
+    label: "Presidente",
+  },
+  "/al": {
+    url: "https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/al/al-c0003-e000546-r.json",
+    label: "Governador",
+  },
+  "/al/sen": {
+    url: "https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/al/al-c0005-e000546-r.json",
+    label: "Senador",
+  },
+  "/al/de": {
+    url: "https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/al/al-c0007-e000546-r.json",
+    label: "Dep. Estadual",
+  },
+  "/al/df": {
+    url: "https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/al/al-c0006-e000546-r.json",
+    label: "Dep. Federal",
+  },
+};
+
 function App() {
   const [loading, setLoading] = React.useState(false);
   const [results, setResults] = React.useState<any>();
-
-  const isGovernor = window.location.pathname === "/al";
 
   React.useEffect(() => {
     const fetchResults = async () => {
       setLoading(true);
 
       const fetchedResults = await fetch(
-        isGovernor
-          ? "https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/al/al-c0003-e000546-r.json"
-          : "https://resultados.tse.jus.br/oficial/ele2022/544/dados-simplificados/br/br-c0001-e000544-r.json"
+        urlGetter[window.location.pathname].url ?? urlGetter["/"].url
       );
 
       const resultsInJSON = await fetchedResults.json();
@@ -24,7 +43,7 @@ function App() {
     };
 
     fetchResults();
-  }, [isGovernor]);
+  }, []);
 
   return (
     <div className="App">
@@ -32,21 +51,24 @@ function App() {
 
       {!loading && (
         <div>
-          <h2>
-            Apuração 2022 -{" "}
-            {isGovernor ? "Governador de Alagoas" : "Presidente"}
-          </h2>
+          <h2>Apuração 2022 - {urlGetter[window.location.pathname].label}</h2>
 
           <br />
 
-          {results?.cand?.map((cand: any) => (
-            <div key={cand?.sqcand}>
-              <h4>
-                {cand?.nm?.replace("&apos;", "'")} - {cand?.pvap}% ({cand?.vap}{" "}
-                votos)
-              </h4>
-            </div>
-          ))}
+          {results?.cand
+            ?.sort((a, b) => {
+              if (a?.pvap < b?.pvap) return 1;
+              if (a?.pvap > b?.pvap) return -1;
+              return 0;
+            })
+            .map((cand: any) => (
+              <div key={cand?.sqcand}>
+                <h4>
+                  {cand?.nm?.replace("&apos;", "'")} - {cand?.pvap}% (
+                  {cand?.vap} votos)
+                </h4>
+              </div>
+            ))}
 
           <br />
           <br />
