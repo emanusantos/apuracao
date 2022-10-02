@@ -21,15 +21,15 @@ function App() {
   return (
     <div className="App">
       <div>
-        <h1>Apuração 2022 - Presidente</h1>
+        <h2>Apuração 2022 - Presidente</h2>
 
         <br />
 
         {results?.cand?.map((cand: any) => (
           <div key={cand?.sqcand}>
-            <h3>
+            <h4>
               {cand?.nm} - {cand?.pvap}% ({cand?.vap} votos)
-            </h3>
+            </h4>
           </div>
         ))}
 
@@ -37,9 +37,19 @@ function App() {
         <br />
         <br />
         <br />
-        <h2>
+        <h3>
           Votos apurados: {results?.vv} ({results?.pst}%)
-        </h2>
+        </h3>
+        <button
+          onClick={() => window.location.reload()}
+          style={{
+            backgroundColor: "white",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          <h4 style={{ textDecoration: "underline" }}>Atualizar</h4>
+        </button>
       </div>
     </div>
   );
