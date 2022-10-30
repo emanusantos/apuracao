@@ -7,7 +7,7 @@ const urlGetter = {
     label: "Presidente",
   },
   "/al": {
-    url: "https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/al/al-c0003-e000546-r.json",
+    url: "https://cors-anywhere.herokuapp.com/https://resultados.tse.jus.br/oficial/ele2022/547/dados-simplificados/al/al-c0003-e000547-r.json",
     label: "Governador",
   },
   "/al/sen": {
