@@ -66,7 +66,7 @@ function App() {
               <div key={cand?.sqcand}>
                 <h4>
                   {cand?.nm?.replace("&apos;", "'")} - {cand?.pvap}% (
-                  {cand?.vap} votos)
+                  {Number(cand?.vap)?.toLocaleString("pt-BR")} votos)
                 </h4>
               </div>
             ))}
@@ -76,7 +76,8 @@ function App() {
           <br />
           <br />
           <h3>
-            Votos apurados: {results?.vv} ({results?.pst}%)
+            Votos apurados: {Number(results?.vv).toLocaleString("pt-BR")} (
+            {results?.pst}%)
           </h3>
           <button
             onClick={() => window.location.reload()}
