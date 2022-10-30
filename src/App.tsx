@@ -3,7 +3,7 @@ import "./App.css";
 
 const urlGetter = {
   "/": {
-    url: "https://resultados.tse.jus.br/oficial/ele2022/545/dados-simplificados/br/br-c0001-e000545-r.json",
+    url: "https://cors-anywhere.herokuapp.com/https://resultados.tse.jus.br/oficial/ele2022/545/dados-simplificados/br/br-c0001-e000545-r.json",
     label: "Presidente",
   },
   "/al": {
@@ -33,7 +33,8 @@ function App() {
       setLoading(true);
 
       const fetchedResults = await fetch(
-        urlGetter[window.location.pathname].url ?? urlGetter["/"].url
+        urlGetter[window.location.pathname].url ?? urlGetter["/"].url,
+        { headers: {} }
       );
 
       const resultsInJSON = await fetchedResults.json();
